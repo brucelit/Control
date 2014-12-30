@@ -91,48 +91,47 @@ public class MainActivity extends Activity {
 		btn_send.setOnClickListener(new SocketListener());
 	}
 
-	public class ServerThread extends Thread {
+	public class ServerRunnable implements Runnable {
+		int sendOrReceive;
+
+		public ServerRunnable(int SendOrReceive) {
+			// 1为send,0为receive
+			sendOrReceive = SendOrReceive;
+		}
+
 		public void run() {
 			try {
 				// turn on socket in udp mode
 				if (udpSocket == null)
 					udpSocket = new DatagramSocket(4567);
-				while (true) {
-					byte buffer[] = new byte[32];
-					DatagramPacket packet = new DatagramPacket(buffer,
-							buffer.length);
-					udpSocket.receive(packet);
-					byte[] data = packet.getData();
-					for (int count = 0; count < data.length; count++) {
-						if (data[count] != 0x00)
-							Log.e("data["+count+"]", "" + data[count]);
+				if (sendOrReceive == 0) {
+					while (true) {
+						byte buffer[] = new byte[5];
+						DatagramPacket packet = new DatagramPacket(buffer,
+								buffer.length);
+						udpSocket.receive(packet);
+						byte[] data = packet.getData();
+						int dataInt = Util.DecodeToInt(data);
+						Log.e("dataInt", ""+dataInt);
 					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	public class SocketThread implements Runnable {
-		public void run() {
-			try {
-				if (udpSocket == null)
-					udpSocket = new DatagramSocket(4567);
-				String IP = et_sendIP.getText().toString().trim();
-				InetAddress IPAddress;
-				IPAddress = InetAddress.getByName(IP);
-				String Text = et_sendMessage.getText().toString().trim();
-				Log.e("send_text", Text);
-				byte data[] = Util.intToBytes(Integer.parseInt(Text));
-//				byte data[] = 
-				for (int count = 0; count < data.length; count++) {
-					Log.e("send_text_byte", "" + data[count]);
+				else if (sendOrReceive == 1) {
+					String IP = et_sendIP.getText().toString().trim();
+					InetAddress IPAddress;
+					IPAddress = InetAddress.getByName(IP);
+					String Text = et_sendMessage.getText().toString().trim();
+					Log.e("send_text", Text);
+					byte data = Util.intToByte(Integer.parseInt(Text));
+					byte buffer[] = Util.packageToSend(data);
+					// byte data[] =
+					for (int count = 0; count < buffer.length; count++) {
+						Log.e("send_text_byte", "" + buffer[count]);
+					}
+					DatagramPacket packet = new DatagramPacket(buffer,
+							buffer.length, IPAddress, 4567);
+					udpSocket.send(packet);
+					// udpSocket.close();
 				}
-				DatagramPacket packet = new DatagramPacket(data, data.length,
-						IPAddress, 4567);
-				udpSocket.send(packet);
-				// udpSocket.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -196,13 +195,14 @@ public class MainActivity extends Activity {
 				tv_hostIPAddress.setText(ip);
 				// 连接网络情况下才打开监听线程
 				if (ipAddress != 0) {
-					new ServerThread().start();
+					ServerRunnable receveRunnable = new ServerRunnable(0);
+					new Thread(receveRunnable).start();
 					btn_receive.setText("监听线程已打开");
 					btn_close.setText("关闭监听线程");
 				}
 			} else if (v == btn_send) {
-				SocketThread sendThread = new SocketThread();
-				new Thread(sendThread).start();
+				ServerRunnable sendRunnable = new ServerRunnable(1);
+				new Thread(sendRunnable).start();
 			}
 		}
 
