@@ -2,6 +2,7 @@ package com.zhou.controlclient;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,19 +19,23 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public class MainActivity extends Activity {
 
 	private ViewPager viewPager;
-	private TextView tv_hostIPAddress;
-	private Button btn_receiveListener;
-	private DatagramSocket udpSocket = null;
 	private ActionBar mActionBar;
 	private List<Tab> tabList = new ArrayList<ActionBar.Tab>();
+	private TextView tv_hostIPAddress;
+	private Button btn_receive, btn_close;
+	private DatagramSocket udpSocket = null;
+	private Button btn_send;
+	private EditText et_sendMessage, et_sendIP;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,31 +81,14 @@ public class MainActivity extends Activity {
 			}
 		});
 		tv_hostIPAddress = (TextView) view1.findViewById(R.id.tv_hostIPAddress);
-		btn_receiveListener = (Button) view1
-				.findViewById(R.id.btn_receiveListener);
-		btn_receiveListener.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// put IP address on TextView
-				WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
-				WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-				int ipAddress = wifiInfo.getIpAddress();
-				Log.e("ipAddress", "" + ipAddress);
-				String ip = "本机ip地址为："
-						+ String.format("%d.%d.%d.%d", (ipAddress & 0xff),
-								(ipAddress >> 8 & 0xff),
-								(ipAddress >> 16 & 0xff),
-								(ipAddress >> 24 & 0xff));
-				if (ipAddress == 0)
-					ip = "未接入wifi网络";
-				tv_hostIPAddress.setText(ip);
-				// 连接网络情况下才打开监听线程
-				if (ipAddress != 0) {
-					new ServerThread().start();
-					btn_receiveListener.setText("监听线程已打开");
-				}
-			}
-		});
+		btn_receive = (Button) view1.findViewById(R.id.btn_receive);
+		btn_close = (Button) view1.findViewById(R.id.btn_close);
+		btn_send = (Button) view2.findViewById(R.id.btn_send);
+		et_sendIP = (EditText) view2.findViewById(R.id.et_sendIP);
+		et_sendMessage = (EditText) view2.findViewById(R.id.et_sendMessage);
+		btn_receive.setOnClickListener(new SocketListener());
+		btn_close.setOnClickListener(new SocketListener());
+		btn_send.setOnClickListener(new SocketListener());
 	}
 
 	public class ServerThread extends Thread {
@@ -109,17 +97,44 @@ public class MainActivity extends Activity {
 				// turn on socket in udp mode
 				if (udpSocket == null)
 					udpSocket = new DatagramSocket(4567);
-				byte buffer[] = new byte[32];
-				DatagramPacket packet = new DatagramPacket(buffer,
-						buffer.length);
 				while (true) {
+					byte buffer[] = new byte[32];
+					DatagramPacket packet = new DatagramPacket(buffer,
+							buffer.length);
 					udpSocket.receive(packet);
 					byte[] data = packet.getData();
 					for (int count = 0; count < data.length; count++) {
-						Log.e("data", "" + data[count]);
+						if (data[count] != 0x00)
+							Log.e("data["+count+"]", "" + data[count]);
 					}
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public class SocketThread implements Runnable {
+		public void run() {
+			try {
+				if (udpSocket == null)
+					udpSocket = new DatagramSocket(4567);
+				String IP = et_sendIP.getText().toString().trim();
+				InetAddress IPAddress;
+				IPAddress = InetAddress.getByName(IP);
+				String Text = et_sendMessage.getText().toString().trim();
+				Log.e("send_text", Text);
+				byte data[] = Util.intToBytes(Integer.parseInt(Text));
+//				byte data[] = 
+				for (int count = 0; count < data.length; count++) {
+					Log.e("send_text_byte", "" + data[count]);
+				}
+				DatagramPacket packet = new DatagramPacket(data, data.length,
+						IPAddress, 4567);
+				udpSocket.send(packet);
+				// udpSocket.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -157,6 +172,38 @@ public class MainActivity extends Activity {
 		@Override
 		public boolean isViewFromObject(View arg0, Object arg1) {
 			return arg0 == arg1;
+		}
+
+	}
+
+	class SocketListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			if (v == btn_receive) {
+				// put IP address on TextView
+				WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+				WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+				int ipAddress = wifiInfo.getIpAddress();
+				Log.e("ipAddress", "" + ipAddress);
+				String ip = "本机ip地址为："
+						+ String.format("%d.%d.%d.%d", (ipAddress & 0xff),
+								(ipAddress >> 8 & 0xff),
+								(ipAddress >> 16 & 0xff),
+								(ipAddress >> 24 & 0xff));
+				if (ipAddress == 0)
+					ip = "未接入wifi网络";
+				tv_hostIPAddress.setText(ip);
+				// 连接网络情况下才打开监听线程
+				if (ipAddress != 0) {
+					new ServerThread().start();
+					btn_receive.setText("监听线程已打开");
+					btn_close.setText("关闭监听线程");
+				}
+			} else if (v == btn_send) {
+				SocketThread sendThread = new SocketThread();
+				new Thread(sendThread).start();
+			}
 		}
 
 	}
