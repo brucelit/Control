@@ -1,6 +1,5 @@
 package com.zhou.controlclient;
 
-import android.util.Log;
 
 public class Util {
 

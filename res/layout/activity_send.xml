@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:text="192.168.1.255" />
+        android:text="192.168.7.255" />
 
     <EditText
         android:id="@+id/et_sendMessage"

@@ -13,6 +13,8 @@ import android.app.Activity;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -31,7 +33,7 @@ public class MainActivity extends Activity {
 	private ViewPager viewPager;
 	private ActionBar mActionBar;
 	private List<Tab> tabList = new ArrayList<ActionBar.Tab>();
-	private TextView tv_hostIPAddress;
+	private TextView tv_hostIPAddress,tv_receive;
 	private Button btn_receive, btn_close;
 	private DatagramSocket udpSocket = null;
 	private Button btn_send;
@@ -81,6 +83,7 @@ public class MainActivity extends Activity {
 			}
 		});
 		tv_hostIPAddress = (TextView) view1.findViewById(R.id.tv_hostIPAddress);
+		tv_receive = (TextView) view1.findViewById(R.id.tv_receive);
 		btn_receive = (Button) view1.findViewById(R.id.btn_receive);
 		btn_close = (Button) view1.findViewById(R.id.btn_close);
 		btn_send = (Button) view2.findViewById(R.id.btn_send);
@@ -113,6 +116,11 @@ public class MainActivity extends Activity {
 						byte[] data = packet.getData();
 						int dataInt = Util.DecodeToInt(data);
 						Log.e("dataInt", ""+dataInt);
+						Message msg = new Message();
+						Bundle bundle = new Bundle();
+						bundle.putString("data", ""+dataInt);
+						msg.setData(bundle);
+						handler.sendMessage(msg);
 					}
 				}
 				else if (sendOrReceive == 1) {
@@ -138,6 +146,19 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
+	
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			Bundle data = msg.getData();
+			String result = data.getString("data");
+			Log.e("result_handler", result);
+			tv_receive.setText(result);
+		}
+
+	};
+
 
 	class PagerViewAdapter extends PagerAdapter {
 
