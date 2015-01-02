@@ -38,5 +38,11 @@
         android:id="@+id/tv_receive"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+    
+    <LinearLayout 
+        android:id="@+id/chart"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"></LinearLayout>
 
 </LinearLayout>
