@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,42 +7,240 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.zhou.controlclient.MainActivity" >
+    android:background="#FAFAD2"
+    tools:context="com.ltt.controlclient.MainActivity" >
 
-    <TextView
-        android:id="@+id/tv_hostIPAddress"
+       <TextView 
+        android:id="@+id/textView_hostIP"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/btn_receive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:text="打开监听线程" />
-
-        <Button
-            android:id="@+id/btn_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btn_receive"
-            android:layout_alignParentRight="true"
-            android:text="关闭监听线程" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/tv_receive"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+         /> 
+         
+               
+    <TextView 
+        android:id="@+id/textView_equipNum"
+        android:layout_below="@id/textView_hostIP"
+        android:layout_marginTop="25px"
+        android:text="输入设备号："
+        android:textSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
     
-    <LinearLayout 
-        android:id="@+id/chart"
+    <EditText 
+        android:id="@+id/editText_equipNum"
+        android:layout_toRightOf="@id/textView_equipNum"
+        android:layout_alignBaseline="@id/textView_equipNum"
+        android:textSize="20dp"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        />
 
-</LinearLayout>
+
+        
+    <Button 
+        android:layout_below="@id/textView_equipNum"
+        android:id="@+id/button_forward"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向前"
+        />
+    
+    <Button 
+        android:layout_below="@id/button_forward"
+        android:layout_alignLeft="@id/button_forward"
+        android:id="@+id/button_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="停止"
+        />
+    
+    <Button 
+        android:layout_toLeftOf="@id/button_stop"
+        android:layout_alignTop="@id/button_stop"
+        android:id="@+id/button_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向左"
+        />
+    
+    <Button 
+        android:layout_toRightOf="@id/button_stop"
+        android:layout_alignTop="@id/button_stop"
+        android:id="@+id/button_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向右"
+        />
+    
+    <Button 
+        android:layout_below="@id/button_stop"
+        android:layout_alignLeft="@id/button_stop"
+        android:id="@+id/button_backward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向后"
+        />
+    
+    
+    //舵机范围的设置
+<TextView 
+    android:id="@+id/textView_actuator_parameter"
+    android:layout_below="@id/button_backward"
+    android:layout_marginTop="40px"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignParentLeft="true"
+    android:text="舵机参数范围："
+    android:textSize="18dp"
+    />
+    
+<EditText 
+    android:id="@+id/editText_actuator_min"
+    android:layout_below="@id/button_backward"
+    android:layout_alignBaseline="@id/textView_actuator_parameter"   
+    android:layout_toRightOf="@id/textView_actuator_parameter"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:inputType="number"
+    />
+
+<TextView 
+    android:id="@+id/textView_actuator_1"
+    android:layout_below="@id/button_backward"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignBaseline="@id/editText_actuator_min"   
+    android:layout_toRightOf="@id/editText_actuator_min"
+    android:text="至"
+    android:textSize="18dp"
+    />
+
+<EditText 
+    android:id="@+id/editText_actuator_max"
+    android:layout_below="@id/button_backward"
+    android:layout_alignBaseline="@id/textView_actuator_1"   
+    android:layout_toRightOf="@id/textView_actuator_1"  
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:inputType="number"
+    />
+    
+
+
+
+<SeekBar        
+    android:id="@+id/seekBar_actuator" 
+    android:layout_below="@id/editText_actuator_max"
+    android:layout_marginTop="18px"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+/> 
+
+<TextView 
+    android:id="@+id/textView_actuator_2" 
+    android:layout_below="@id/seekBar_actuator"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:layout_alignParentLeft="true"
+    android:text="舵机当前值："
+/> 
+
+<TextView 
+    android:id="@+id/textView_actuator_progress" 
+    android:layout_below="@id/seekBar_actuator"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:layout_toRightOf="@id/textView_actuator_2"
+    android:text="0"
+/> 
+    
+//电机范围的设置
+<TextView 
+    android:id="@+id/textView_motor_parameter"
+    android:layout_below="@id/textView_actuator_progress"
+    android:layout_marginTop="40px"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignParentLeft="true"
+    android:text="电机参数范围："
+    android:textSize="18dp"
+    />
+    
+<EditText 
+    android:id="@+id/editText_motor_min"
+    android:layout_below="@id/textView_actuator_progress"
+    android:layout_alignBaseline="@id/textView_motor_parameter"   
+    android:layout_toRightOf="@id/textView_motor_parameter"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:inputType="number"
+    />
+
+<TextView 
+    android:id="@+id/textView_motor_1"
+    android:layout_below="@id/textView_actuator_progress"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:layout_alignBaseline="@id/editText_motor_min"   
+    android:layout_toRightOf="@id/editText_motor_min"
+    android:text="至"
+    android:textSize="18dp"
+    />
+
+<EditText 
+    android:id="@+id/editText_motor_max"
+    android:layout_below="@id/textView_actuator_progress"
+    android:layout_alignBaseline="@id/textView_motor_1"   
+    android:layout_toRightOf="@id/textView_motor_1"  
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:inputType="number"
+    />
+    
+
+
+
+<SeekBar        
+    android:id="@+id/seekBar_motor" 
+    android:layout_below="@id/editText_motor_max"
+    android:layout_marginTop="18px"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+/> 
+
+<TextView 
+    android:id="@+id/textView_motor_2" 
+    android:layout_below="@id/seekBar_motor"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:layout_alignParentLeft="true"
+    android:text="电机当前值："
+/> 
+
+<TextView 
+    android:id="@+id/textView_motor_progress" 
+    android:layout_below="@id/seekBar_motor"
+    android:layout_width="wrap_content" 
+    android:layout_height="wrap_content" 
+    android:textSize="18dp"
+    android:layout_toRightOf="@id/textView_motor_2"
+    android:text="0"
+/> 
+
+    
+    
+    
+        
+
+</RelativeLayout>

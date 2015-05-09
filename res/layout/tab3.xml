@@ -10,34 +10,34 @@
     tools:context="com.example.seekbar.MainActivity" >
     
 <TextView 
-    android:id="@+id/textView_actuator"
+    android:id="@+id/textView_motor"
     android:layout_centerHorizontal="true"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:layout_alignParentTop="true"
-    android:text="舵机参数"
+    android:text="电机参数"
     android:textSize="18dp"
     />
 
 
 
-//舵机参数P的设置
+//电机参数P的设置
 <TextView 
-    android:id="@+id/textView_actuator_P"
-    android:layout_below="@id/textView_actuator"
+    android:id="@+id/textView_motor_P"
+    android:layout_below="@id/textView_motor"
     android:layout_marginTop="40px"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:layout_alignParentLeft="true"
-    android:text="舵机P参数范围："
+    android:text="电机P参数范围："
     android:textSize="14dp"
     />
     
 <EditText 
-    android:id="@+id/editText_actuator_P_min"
-    android:layout_below="@id/textView_actuator"
-    android:layout_alignBaseline="@id/textView_actuator_P"   
-    android:layout_toRightOf="@id/textView_actuator_P"
+    android:id="@+id/editText_motor_P_min"
+    android:layout_below="@id/textView_motor"
+    android:layout_alignBaseline="@id/textView_motor_P"   
+    android:layout_toRightOf="@id/textView_motor_P"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -45,21 +45,21 @@
     />
 
 <TextView 
-    android:id="@+id/textView_actuator_P_1"
-    android:layout_below="@id/textView_actuator"
+    android:id="@+id/textView_motor_P_1"
+    android:layout_below="@id/textView_motor"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:layout_alignBaseline="@id/editText_actuator_P_min"   
-    android:layout_toRightOf="@id/editText_actuator_P_min"
+    android:layout_alignBaseline="@id/editText_motor_P_min"   
+    android:layout_toRightOf="@id/editText_motor_P_min"
     android:text="至"
     android:textSize="14dp"
     />
 
 <EditText 
-    android:id="@+id/editText_actuator_P_max"
-    android:layout_below="@id/textView_actuator"
-    android:layout_alignBaseline="@id/textView_actuator_P_1"   
-    android:layout_toRightOf="@id/textView_actuator_P_1"  
+    android:id="@+id/editText_motor_P_max"
+    android:layout_below="@id/textView_motor"
+    android:layout_alignBaseline="@id/textView_motor_P_1"   
+    android:layout_toRightOf="@id/textView_motor_P_1"  
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -70,51 +70,51 @@
 
 
 <SeekBar        
-    android:id="@+id/seekBar_actuator_P" 
-    android:layout_below="@id/editText_actuator_P_max"
+    android:id="@+id/seekBar_motor_P" 
+    android:layout_below="@id/editText_motor_P_max"
     android:layout_marginTop="14px"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
 /> 
 
 <TextView 
-    android:id="@+id/textView_actuator_P_2" 
-    android:layout_below="@id/seekBar_actuator_P"
+    android:id="@+id/textView_motor_P_2" 
+    android:layout_below="@id/seekBar_motor_P"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
     android:layout_alignParentLeft="true"
-    android:text="舵机参数P当前值："
+    android:text="电机参数P当前值："
 /> 
 
 <TextView 
-    android:id="@+id/textView_actuator_P_progress" 
-    android:layout_below="@id/seekBar_actuator_P"
+    android:id="@+id/textView_motor_P_progress" 
+    android:layout_below="@id/seekBar_motor_P"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
-    android:layout_toRightOf="@id/textView_actuator_P_2"
+    android:layout_toRightOf="@id/textView_motor_P_2"
     android:text="0"
 /> 
 
-//舵机参数I的设置
+//电机参数I的设置
 
 <TextView 
-    android:id="@+id/textView_actuator_I"
-    android:layout_below="@id/textView_actuator_P_progress"
+    android:id="@+id/textView_motor_I"
+    android:layout_below="@id/textView_motor_P_progress"
     android:layout_marginTop="55px"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:layout_alignParentLeft="true"
-    android:text="舵机I参数范围："
+    android:text="电机I参数范围："
     android:textSize="14dp"
     />
     
 <EditText 
-    android:id="@+id/editText_actuator_I_min"
-    android:layout_below="@id/textView_actuator_P_progress"
-    android:layout_alignBaseline="@id/textView_actuator_I"   
-    android:layout_toRightOf="@id/textView_actuator_I"
+    android:id="@+id/editText_motor_I_min"
+    android:layout_below="@id/textView_motor_P_progress"
+    android:layout_alignBaseline="@id/textView_motor_I"   
+    android:layout_toRightOf="@id/textView_motor_I"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -122,21 +122,21 @@
     />
 
 <TextView 
-    android:id="@+id/textView_actuator_I_1"
-    android:layout_below="@id/textView_actuator_P_progress"
+    android:id="@+id/textView_motor_I_1"
+    android:layout_below="@id/textView_motor_P_progress"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:layout_alignBaseline="@id/editText_actuator_I_min"   
-    android:layout_toRightOf="@id/editText_actuator_I_min"
+    android:layout_alignBaseline="@id/editText_motor_I_min"   
+    android:layout_toRightOf="@id/editText_motor_I_min"
     android:text="至"
     android:textSize="14dp"
     />
 
 <EditText 
-    android:id="@+id/editText_actuator_I_max"
-    android:layout_below="@id/textView_actuator_P_progress"
-    android:layout_alignBaseline="@id/textView_actuator_I_1"   
-    android:layout_toRightOf="@id/textView_actuator_I_1"  
+    android:id="@+id/editText_motor_I_max"
+    android:layout_below="@id/textView_motor_P_progress"
+    android:layout_alignBaseline="@id/textView_motor_I_1"   
+    android:layout_toRightOf="@id/textView_motor_I_1"  
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -145,52 +145,52 @@
 
 
 <SeekBar        
-    android:id="@+id/seekBar_actuator_I" 
-    android:layout_below="@id/editText_actuator_I_max"
+    android:id="@+id/seekBar_motor_I" 
+    android:layout_below="@id/editText_motor_I_max"
     android:layout_marginTop="29px"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
 />
 
 <TextView 
-    android:id="@+id/textView_actuator_I_2" 
-    android:layout_below="@id/seekBar_actuator_I"
+    android:id="@+id/textView_motor_I_2" 
+    android:layout_below="@id/seekBar_motor_I"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
     android:layout_alignParentLeft="true"
-    android:text="舵机参数I当前值："
+    android:text="电机参数I当前值："
 /> 
 
 
 <TextView 
-    android:id="@+id/textView_actuator_I_progress" 
-    android:layout_below="@id/seekBar_actuator_I"
+    android:id="@+id/textView_motor_I_progress" 
+    android:layout_below="@id/seekBar_motor_I"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
-    android:layout_toRightOf="@id/textView_actuator_I_2"
+    android:layout_toRightOf="@id/textView_motor_I_2"
     android:text="0"
 /> 
 
-//舵机参数D的设置
+//电机参数D的设置
 
 <TextView 
-    android:id="@+id/textView_actuator_D"
-    android:layout_below="@id/textView_actuator_I_progress"
+    android:id="@+id/textView_motor_D"
+    android:layout_below="@id/textView_motor_I_progress"
     android:layout_marginTop="55px"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:layout_alignParentLeft="true"
-    android:text="舵机D参数范围："
+    android:text="电机D参数范围："
     android:textSize="14dp"
     />
     
 <EditText 
-    android:id="@+id/editText_actuator_D_min"
-    android:layout_below="@id/textView_actuator_I_progress"
-    android:layout_alignBaseline="@id/textView_actuator_D"   
-    android:layout_toRightOf="@id/textView_actuator_D"
+    android:id="@+id/editText_motor_D_min"
+    android:layout_below="@id/textView_motor_I_progress"
+    android:layout_alignBaseline="@id/textView_motor_D"   
+    android:layout_toRightOf="@id/textView_motor_D"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -198,21 +198,21 @@
     />
 
 <TextView 
-    android:id="@+id/textView_actuator_D_1"
-    android:layout_below="@id/textView_actuator_I_progress"
+    android:id="@+id/textView_motor_D_1"
+    android:layout_below="@id/textView_motor_I_progress"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
-    android:layout_alignBaseline="@id/editText_actuator_D_min"   
-    android:layout_toRightOf="@id/editText_actuator_D_min"
+    android:layout_alignBaseline="@id/editText_motor_D_min"   
+    android:layout_toRightOf="@id/editText_motor_D_min"
     android:text="至"
     android:textSize="14dp"
     />
 
 <EditText 
-    android:id="@+id/editText_actuator_D_max"
-    android:layout_below="@id/textView_actuator_I_progress"
-    android:layout_alignBaseline="@id/textView_actuator_D_1"   
-    android:layout_toRightOf="@id/textView_actuator_D_1"  
+    android:id="@+id/editText_motor_D_max"
+    android:layout_below="@id/textView_motor_I_progress"
+    android:layout_alignBaseline="@id/textView_motor_D_1"   
+    android:layout_toRightOf="@id/textView_motor_D_1"  
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
@@ -223,30 +223,30 @@
 
 
 <SeekBar        
-    android:id="@+id/seekBar_actuator_D" 
-    android:layout_below="@id/editText_actuator_D_max"
+    android:id="@+id/seekBar_motor_D" 
+    android:layout_below="@id/editText_motor_D_max"
     android:layout_marginTop="30px"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content" 
 /> 
 
  <TextView 
-    android:id="@+id/textView_actuator_D_2" 
-    android:layout_below="@id/seekBar_actuator_D"
+    android:id="@+id/textView_motor_D_2" 
+    android:layout_below="@id/seekBar_motor_D"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
     android:layout_alignParentLeft="true"
-    android:text="舵机参数D当前值："
+    android:text="电机参数D当前值："
 />
 
  <TextView 
-    android:id="@+id/textView_actuator_D_progress" 
-    android:layout_below="@id/seekBar_actuator_D"
+    android:id="@+id/textView_motor_D_progress" 
+    android:layout_below="@id/seekBar_motor_D"
     android:layout_width="wrap_content" 
     android:layout_height="wrap_content" 
     android:textSize="14dp"
-    android:layout_toRightOf="@id/textView_actuator_D_2"
+    android:layout_toRightOf="@id/textView_motor_D_2"
     android:text="0"
 /> 
 
